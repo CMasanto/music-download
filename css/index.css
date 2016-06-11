@@ -1,0 +1,63 @@
+html {
+	height: 100%;
+	width: 100%;
+}
+
+body {
+    background-image: url("./media/css/mt_pilchuck_edited.mp4");
+    
+    height: 100%;
+    width: 100%;
+}
+
+.fullscreen-bg {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: -100;
+}
+
+.fullscreen-bg__video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-width: 100%;
+    height: 100%;
+    min-height:100%;
+}
+
+@media (min-aspect-ratio: 16/9) {
+  .fullscreen-bg__video {
+    height: 300%;
+    top: -100%;
+  }
+}
+
+@media (max-aspect-ratio: 16/9) {
+  .fullscreen-bg__video {
+    width: 300%;
+    left: -100%;
+  }
+}
+
+#home-content {
+	height: 50%;
+	width: 100%
+	
+	margin-top: 25%:
+	margin-bottom: 25%;
+	
+	background-color: black;
+	opacity: 0.8;
+}
+
+#home-content input {
+	
+
+}
+
+
