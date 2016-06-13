@@ -48,16 +48,36 @@ body {
 	height: 50%;
 	width: 100%
 	
-	margin-top: 25%:
-	margin-bottom: 25%;
-	
+	margin-top: 40%:
+	margin-bottom: 40%;
+
 	background-color: black;
 	opacity: 0.8;
 }
 
-#home-content input {
-	
-
+input[type=search] {
+	width: 80%;
+	display: inline-block;
+	margin-left: 5%;
+	border: solid #ccc;
+	border-radius: 4px;
 }
+
+input[type=submit] {
+	width: 10%;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
 
 
