@@ -1,23 +1,17 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
-var button = document.getElementById('elvis-button'); // add id="my-button" into html
-button.addEventListener('click', getAllElvisAlbums);
 
-function getAllElvisAlbums() {
+// getAllElvisAlbums() {
 	// search tracks whose name, album or artist contains query
-	var unique = require('uniq');
 	var Spotify = require('spotify-web-api-js');
 	var s = new Spotify();
 	
-	// First, instantiate the wrapper.
-	var spotifyApi = new SpotifyWebApi();
-	
 	// get Elvis' albums, passing a callback. When a callback is passed, no Promise is returned
-	spotifyApi.getArtistAlbums('43ZHCT0cAZBISjO8DG9PnE', function(err, data) {
+	s.getArtistAlbums('43ZHCT0cAZBISjO8DG9PnE', function(err, data) {
 	  if (err) console.error(err);
 	  else console.log('Artist albums', data);
 	});
-}
+//}
 
 
 /// Test Functions 
