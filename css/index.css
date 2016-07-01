@@ -2,24 +2,48 @@ html {
 	height: 100%;
 	width: 100%;
 }
-
 body {
 	background-color: #3ED782;    
     height: 100%;
     width: 100%;
 }
 
+
+
+
 form {
-	width:500px;
+	display:block;
+	text-align:center;
 	margin:50px auto;
 }
 
-.search {
+
+
+/* Search bar  */
+.search-bar {
 	padding:8px 15px;
 	background:rgba(50, 50, 50, 0.2);
 	border:0px solid #dbdbdb;
+	width:50%;
+}
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:#11021A;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:#11021A;
+   opacity:1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:#11021A;
+   opacity:1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:#11021A;
 }
 
+
+
+/* Search button */
 .button {
 	position:relative;
 	padding:6px 15px;

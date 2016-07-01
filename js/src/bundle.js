@@ -1,7 +1,12 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
+function $(id) {
+	return document.getElementById(id);
+}
 
-// getAllElvisAlbums() {
+$('elvis-button').addEventListener("click", function(){getAllElvisAlbums()});
+
+function getAllElvisAlbums() {
 	// search tracks whose name, album or artist contains query
 	var Spotify = require('spotify-web-api-js');
 	var s = new Spotify();
@@ -11,33 +16,8 @@
 	  if (err) console.error(err);
 	  else console.log('Artist albums', data);
 	});
-//}
+}
 
-
-/// Test Functions 
-// function getAllTrackIdsForQueryTest1() {
-// 	var query1 = '';
-// 	var result1 = getAllTrackIdsForQuery(query1);
-// 	print(result1);
-// }
-// 
-// function getAllTrackIdsForQueryTest2() {	
-// 	var query2 = '1l234hlahdfa784rklasf134';
-// 	var result2 = getAllTrackIdsForQuery(query2);
-// 	print(result2);
-// }
-// 
-// function getAllTrackIdsForQueryTest3() {	
-// 	var query3 = 'love';
-// 	var result3 = getAllTrackIdsForQuery(query3);
-// 	print(result3);
-// }
-// 
-// function getAllTrackIdsForQueryTest4() {	
-// 	var query4 = 'love is';
-// 	var result4 = getAllTrackIdsForQuery(query4);
-// 	print(result4);
-// }
 },{"spotify-web-api-js":2,"uniq":3}],2:[function(require,module,exports){
 /* global module */
 'use strict';
