@@ -7,36 +7,72 @@ function $(id) {
 	return document.getElementById(id);
 }
 
-$('search-button').addEventListener("click", function(){searchQuery()});
-function searchQuery() {
-	query = $('search-bar').value;
-	results = [];
+$('search-button').addEventListener("click", function(){displayQueryResults()});
+function displayQueryResults() {
+	var query = $('search-bar').value;
+	if (query == '') {
+		return;
+	} else {
+		clearResults();
+	}
 
 	// Search tracks whose name, album or artist contains the query
 	s.searchTracks(query).then(function(trackResults) {
-		console.log('Search tracks by "' + query +'"', trackResults);
-		results.push(trackResults);
+		console.log('Search tracks by "' + query + '"', trackResults);
+		displayResults('tracks', trackResults);
 	}, function(err) {
 		console.error(err);
 	});
 
 	// Search artists whose name contains the query
 	s.searchArtists(query).then(function(artistResults) {
-		console.log('Search artists by "' + query +'"', artistResults);
-		results.push(artistResults);
+		console.log('Search artists by "' + query + '"', artistResults);
+		displayResults('artists', artistResults);
 	}, function(err) {
 		console.error(err);
 	});
 	
 	// Search albums whose name contains the query
 	s.searchAlbums(query).then(function(albumResults) {
-		console.log('Search albums by "' + query +'"', albumResults);
-		results.push(albumResults);
+		console.log('Search albums by "' + query + '"', albumResults);
+		displayResults('albums', albumResults);
 	}, function(err) {
 		console.error(err);
 	});
+}
+
+function clearResults() {
+	$('results').innerHTML = '';
+}
+
+function displayResults(label, results) {
+	var h = document.createElement("h1");
+	var title = document.createTextNode(label);
+	h.appendChild(title);
+	$('results').appendChild(h);
 	
-	return results;
+	if (label == 'tracks') {
+		length = results.tracks.items.length;
+		for (var i = 0; i < length; i++) {
+			var trackDiv = document.createElement('div');
+			trackDiv.innerHTML = results.tracks.items[i].name;
+			$('results').appendChild(trackDiv);
+		}
+	} else if (label == 'artists') {
+		length = results.artists.items.length;
+		for (var i = 0; i < length; i++) {
+			var trackDiv = document.createElement('div');
+			trackDiv.innerHTML = results.artists.items[i].name;
+			$('results').appendChild(trackDiv);
+		}
+	} else if (label == 'albums') {
+		length = results.albums.items.length;
+		for (var i = 0; i < length; i++) {
+			var trackDiv = document.createElement('div');
+			trackDiv.innerHTML = results.albums.items[i].name;
+			$('results').appendChild(trackDiv);
+		}
+	}
 }
 
 

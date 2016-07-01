@@ -55,6 +55,28 @@ form {
 
 
 
+/* Results */
+#results {
+	/* basic styling */
+	width: 350px;
+	height: 200px;
+	font: 14px Arial;
+
+	/* flexbox setup */
+	display: flex;
+	flex-direction: row;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
