@@ -1,22 +1,44 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
+var Spotify = require('spotify-web-api-js');
+var s = new Spotify();
+
 function $(id) {
 	return document.getElementById(id);
 }
 
-$('elvis-button').addEventListener("click", function(){getAllElvisAlbums()});
+$('search-button').addEventListener("click", function(){searchQuery()});
+function searchQuery() {
+	query = $('search-bar').value;
+	results = [];
 
-function getAllElvisAlbums() {
-	// search tracks whose name, album or artist contains query
-	var Spotify = require('spotify-web-api-js');
-	var s = new Spotify();
-	
-	// get Elvis' albums, passing a callback. When a callback is passed, no Promise is returned
-	s.getArtistAlbums('43ZHCT0cAZBISjO8DG9PnE', function(err, data) {
-	  if (err) console.error(err);
-	  else console.log('Artist albums', data);
+	// Search tracks whose name, album or artist contains the query
+	s.searchTracks(query).then(function(trackResults) {
+		console.log('Search tracks by "' + query +'"', trackResults);
+		results.push(trackResults);
+	}, function(err) {
+		console.error(err);
 	});
+
+	// Search artists whose name contains the query
+	s.searchArtists(query).then(function(artistResults) {
+		console.log('Search artists by "' + query +'"', artistResults);
+		results.push(artistResults);
+	}, function(err) {
+		console.error(err);
+	});
+	
+	// Search albums whose name contains the query
+	s.searchAlbums(query).then(function(albumResults) {
+		console.log('Search albums by "' + query +'"', albumResults);
+		results.push(albumResults);
+	}, function(err) {
+		console.error(err);
+	});
+	
+	return results;
 }
+
 
 },{"spotify-web-api-js":2,"uniq":3}],2:[function(require,module,exports){
 /* global module */

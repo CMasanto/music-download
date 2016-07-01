@@ -20,7 +20,7 @@ form {
 
 
 /* Search bar  */
-.search-bar {
+#search-bar {
 	padding:8px 15px;
 	background:rgba(50, 50, 50, 0.2);
 	border:0px solid #dbdbdb;
@@ -44,7 +44,7 @@ form {
 
 
 /* Search button */
-.button {
+#search-button {
 	position:relative;
 	padding:6px 15px;
 	left:-8px;
