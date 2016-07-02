@@ -2,76 +2,77 @@
 
 var Spotify = require('spotify-web-api-js');
 var s = new Spotify();
+document.getElementById('search-button').addEventListener("click", function(){displayQueryResults()});
 
-function $(id) {
-	return document.getElementById(id);
-}
-
-$('search-button').addEventListener("click", function(){displayQueryResults()});
 function displayQueryResults() {
-	var query = $('search-bar').value;
-	if (query == '') {
-		return;
-	} else {
-		clearResults();
-	}
+	var query = document.getElementById('search-bar').value;
+	if (query.length == 0) return;
+	
+	var resultsDiv = document.getElementById('results');
+	resultsDiv.innerHTML = '';
+	
+	resultsDiv.appendChild(createHeader('Tracks'));
+	var tracks = getTracksForQuery(query);
+    displayResults(tracks);  // TODO: Promise
+			
+	resultsDiv.appendChild(createHeader('Artists'));
+	var artists = getArtistsForQuery(query);
+    displayResults(artists);  // TODO: Promise
+	
+	resultsDiv.appendChild(createHeader('Albums'));
+	var albums = getAlbumsForQuery(query);
+    displayResults(albums);  // TODO: Promise
+}
 
-	// Search tracks whose name, album or artist contains the query
+
+
+function getTracksForQuery(query) {
 	s.searchTracks(query).then(function(trackResults) {
-		console.log('Search tracks by "' + query + '"', trackResults);
-		displayResults('tracks', trackResults);
+		console.log('Search tracks by "' + query + '"', trackResults.tracks.items);
+		return trackResults.tracks.items;
 	}, function(err) {
 		console.error(err);
 	});
+}
 
-	// Search artists whose name contains the query
+
+
+function getArtistsForQuery(query) {
 	s.searchArtists(query).then(function(artistResults) {
-		console.log('Search artists by "' + query + '"', artistResults);
-		displayResults('artists', artistResults);
+		console.log('Search artists by "' + query + '"', artistResults.artists.items);
+		return artistResults.artists.items;
 	}, function(err) {
 		console.error(err);
 	});
-	
-	// Search albums whose name contains the query
+}
+
+
+
+function getAlbumsForQuery(query) {
 	s.searchAlbums(query).then(function(albumResults) {
-		console.log('Search albums by "' + query + '"', albumResults);
-		displayResults('albums', albumResults);
+		console.log('Search albums by "' + query + '"', albumResults.albums.items);
+		return albumResults.albums.items;
 	}, function(err) {
 		console.error(err);
 	});
 }
 
-function clearResults() {
-	$('results').innerHTML = '';
+
+
+function createHeader(text) {
+	var h = document.createElement("h1");
+	h.innerHTML = text;
+	return h;
 }
 
-function displayResults(label, results) {
-	var h = document.createElement("h1");
-	var title = document.createTextNode(label);
-	h.appendChild(title);
-	$('results').appendChild(h);
-	
-	if (label == 'tracks') {
-		length = results.tracks.items.length;
-		for (var i = 0; i < length; i++) {
-			var trackDiv = document.createElement('div');
-			trackDiv.innerHTML = results.tracks.items[i].name;
-			$('results').appendChild(trackDiv);
-		}
-	} else if (label == 'artists') {
-		length = results.artists.items.length;
-		for (var i = 0; i < length; i++) {
-			var trackDiv = document.createElement('div');
-			trackDiv.innerHTML = results.artists.items[i].name;
-			$('results').appendChild(trackDiv);
-		}
-	} else if (label == 'albums') {
-		length = results.albums.items.length;
-		for (var i = 0; i < length; i++) {
-			var trackDiv = document.createElement('div');
-			trackDiv.innerHTML = results.albums.items[i].name;
-			$('results').appendChild(trackDiv);
-		}
+
+
+function displayResults(spotifyItems) {
+	var resultsDiv = document.getElementById('results');
+	for (var i = 0; i < spotifyItems.length; i++) {
+		var trackDiv = document.createElement('div');
+		trackDiv.innerHTML = spotifyItems[i].name;
+		resultsDiv.appendChild(trackDiv);
 	}
 }
 
