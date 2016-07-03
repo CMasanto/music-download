@@ -1,27 +1,73 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
 var Spotify = require('spotify-web-api-js');
 var s = new Spotify();
-document.getElementById('search-button').addEventListener("click", function(){displayQueryResults()});
+document.getElementById('search-button').addEventListener("click", function(){main()});
 
-function displayQueryResults() {
-	var query = document.getElementById('search-bar').value;
+function main() {
+	const query = document.getElementById('search-bar').value;
 	if (query.length == 0) return;
 	
-	var resultsDiv = document.getElementById('results');
-	resultsDiv.innerHTML = '';
+	console.log('in main');
+	const resultsDiv = document.getElementById('results');
+
+	// Generate and display tracks relevant to the query.
+	resultsDiv.appendChild(createNodeWithText('h1', 'Tracks'));
+	s.searchTracks(query).then(function(trackResults) {
+		console.log('');
+		const tracksDiv = getDivForSpotifyItems(trackResults.tracks.items);
+		console.log(tracksDiv);
+		resultsDiv.appendChild(tracksDiv);
+	}, function(err) {
+		console.error(err);
+	});
+
+	// Generate and display artists relevant to the query.
+	resultsDiv.appendChild(createNodeWithText('h1', 'Artists'));
+	s.searchArtists(query).then(function(artistResults) {
+		const artistsDiv = getDivForSpotifyItems(artistResults.artists.items);
+		resultsDiv.appendChild(artistsDiv);
+	}, function(err) {
+		console.error(err);
+	});
 	
-	resultsDiv.appendChild(createHeader('Tracks'));
-	var tracks = getTracksForQuery(query);
-    displayResults(tracks);  // TODO: Promise
-			
-	resultsDiv.appendChild(createHeader('Artists'));
-	var artists = getArtistsForQuery(query);
-    displayResults(artists);  // TODO: Promise
+	// Generate and display albums relevant to the query.
+	resultsDiv.appendChild(createNodeWithText('h1', 'Albums'));
+	s.searchAlbums(query).then(function(albumResults) {
+		getDivForSpotifyItems(albumResults.albums.items);
+		resultsDiv.appendChild(albumsDiv);
+	}, function(err) {
+		console.error(err);
+	});
+}
+
+
+
+function getDivForSpotifyItems(spotifyItems) {
+	const div = document.createElement('div');
+	for (var i = 0; i < spotifyItems.length; i++) {
+		const itemDiv = document.createElement('div');
+		itemDiv.innerHTML = spotifyItems[i].name;
+		div.appendChild(trackDiv);
+	}
+	return div;
+}
+
+
+
+function createNodeWithText(elementType, text) {
+	if (typeof text != 'string') {
+		console.log('Error: The second parameter must be a string.')
+		return;
+	}
 	
-	resultsDiv.appendChild(createHeader('Albums'));
-	var albums = getAlbumsForQuery(query);
-    displayResults(albums);  // TODO: Promise
+	const heading = document.createElement(elementType);
+	const textNode = document.createTextNode(text);
+	heading.appendChild(textNode);
+	return heading;
 }
 
 
@@ -67,14 +113,17 @@ function createHeader(text) {
 
 
 
-function displayResults(spotifyItems) {
-	var resultsDiv = document.getElementById('results');
+function getDivListingSpotifyItems(spotifyItems) {
+	var itemsDiv = document.createElement('div');
 	for (var i = 0; i < spotifyItems.length; i++) {
 		var trackDiv = document.createElement('div');
-		trackDiv.innerHTML = spotifyItems[i].name;
-		resultsDiv.appendChild(trackDiv);
+		itemsDiv.innerHTML = spotifyItems[i].name;
+		itemsDiv.appendChild(trackDiv);
 	}
+	return itemsDiv;
 }
+//////////////////////////////////////////////////////////////////////////////////////////
+
 
 
 },{"spotify-web-api-js":2,"uniq":3}],2:[function(require,module,exports){
