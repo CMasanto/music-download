@@ -2,7 +2,9 @@
 
 var Spotify = require('spotify-web-api-js');
 var s = new Spotify();
-$('search-button').addEventListener("click", function(){displayQueryResults()});
+$('search-button').addEventListener("click", function() {
+	displayQueryResults();
+});
 
 
 
@@ -48,9 +50,36 @@ function displayQueryResults() {
 
 function getDivForSpotifyItems(spotifyItems) {
 	const div = document.createElement('div');
+	console.log(spotifyItems);
 	for (var i = 0; i < spotifyItems.length; i++) {
 		const itemDiv = document.createElement('div');
-		itemDiv.innerHTML = spotifyItems[i].name;
+		itemDiv.className = 'resultItem';
+		if (spotifyItems[i].type == 'track') {
+			const title = document.createTextNode('Title: ' + spotifyItems[i].name);
+			const artist = document.createTextNode('Artist: ' + spotifyItems[i].artists[0].name);
+			const album = document.createTextNode('Album: ' + spotifyItems[i].album.name);
+			itemDiv.appendChild(title);
+			itemDiv.appendChild(document.createElement('br'));
+			itemDiv.appendChild(artist);
+			itemDiv.appendChild(document.createElement('br'));
+			itemDiv.appendChild(album);
+			itemDiv.appendChild(document.createElement('br'));
+			itemDiv.appendChild(document.createElement('br'));
+			
+			const images = spotifyItems[i].album.images;
+			if (images && images.length >= 2) {
+				const thumbnail = document.createElement('img');
+				thumbnail.src = images[1].url;
+				thumbnail.width = 120;
+				itemDiv.appendChild(thumbnail);
+			}
+		} else if (spotifyItems[i].type == 'artist') {
+			const name = document.createTextNode('Name: ' + spotifyItems[i].name);
+			itemDiv.appendChild(name);
+		} else if (spotifyItems[i].type == 'album') {
+			const name = document.createTextNode('Name: ' + spotifyItems[i].name);
+			itemDiv.appendChild(name);
+		} 
 		div.appendChild(itemDiv);
 	}
 	return div;

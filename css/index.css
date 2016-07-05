@@ -3,7 +3,12 @@ html {
 	width: 100%;
 }
 body {
-	background-color: #3ED782;    
+	background: #0E0816; /* For browsers that do not support gradients */
+	background: -webkit-linear-gradient(left top, #fea680, #01abaa); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(bottom right, #fea680, #01abaa); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(bottom right, #fea680, #01abaa); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(to bottom right, #fea680, #01abaa); /* Standard syntax */
+	background-attachment: fixed;
     height: 100%;
     width: 100%;
 }
@@ -21,54 +26,89 @@ form {
 
 /* Search bar  */
 #search-bar {
+	background:rgba(0, 0.2);
+	border:0px solid #000000;
+	height:20%;
+	margin:6px;
 	padding:8px 15px;
-	background:rgba(50, 50, 50, 0.2);
-	border:0px solid #dbdbdb;
+	opacity:0.8;
 	width:50%;
 }
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-    color:#11021A;
+    color:#01abaa;
 }
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-   color:#11021A;
+   color:#01abaa;
    opacity:1;
 }
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
-   color:#11021A;
+   color:#01abaa;
    opacity:1;
 }
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
-   color:#11021A;
+   color:#01abaa;
 }
 
 
 
 /* Search button */
 #search-button {
-	position:relative;
-	padding:6px 15px;
+	background-color:#fea680;
+	border:2px solid #fea680;
+	color:#0f2f4f;
+	font-family:helvetica;
+	font-weight:500;
 	left:-8px;
-	border:2px solid #207cca;
-	background-color:#207cca;
-	color:#fafafa;
+	padding:6px 15px;
+	position:relative;
 }
 
 
 
 /* Results */
 #results {
-	/* basic styling */
-	width: 350px;
-	height: 200px;
-	font: 14px Arial;
 
-	/* flexbox setup */
-	display: flex;
-	flex-direction: row;
 }
 
+#results h1 {
+	color:#fedc3d;
+	font-family:helvetica;
+	font-weight:100;
+	text-align:center;
+}
 
+#results hr {
+	border-color:#ffffff;
+	border-width: 1px;
+	margin-bottom:2%;
+	width:50%;
+}
 
+.resultItem {
+	background-color:#006867;
+	border:5%;
+	border-radius:100px;
+	color:#FF8753;
+	font-family:helvetica;
+	height:15%;
+	margin:auto;
+	margin-bottom:4%;
+	padding-bottom:2%;
+	opacity:0.75;
+	padding-top:2%;
+	text-align:center;
+	width:90%;
+}
+
+.resultItem:hover {
+	border:solid;
+	border-color:#fedc3d;
+	border-width:3px;
+}
+
+.resultItem img {
+
+}
 
 
 
