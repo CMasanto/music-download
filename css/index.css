@@ -4,10 +4,10 @@ html {
 }
 body {
 	background: #0E0816; /* For browsers that do not support gradients */
-	background: -webkit-linear-gradient(left top, #fea680, #01abaa); /* For Safari 5.1 to 6.0 */
-	background: -o-linear-gradient(bottom right, #fea680, #01abaa); /* For Opera 11.1 to 12.0 */
-	background: -moz-linear-gradient(bottom right, #fea680, #01abaa); /* For Firefox 3.6 to 15 */
-	background: linear-gradient(to bottom right, #fea680, #01abaa); /* Standard syntax */
+	background: -webkit-linear-gradient(left top, #1e392a, #3cc47c, #e9c893); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(bottom right, #1e392a, #3cc47c, #e9c893); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(bottom right, #1e392a, #3cc47c, #e9c893); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(to bottom right, #1e392a, #3cc47c, #e9c893); /* Standard syntax */
 	background-attachment: fixed;
     height: 100%;
     width: 100%;
@@ -78,23 +78,20 @@ form {
 }
 
 #results hr {
-	border-color:#ffffff;
-	border-width: 1px;
+	border-color:#bfd8d2;
 	margin-bottom:2%;
 	width:50%;
 }
 
 .resultItem {
-	background-color:#006867;
 	border:5%;
 	border-radius:100px;
-	color:#FF8753;
+	color:white;
 	font-family:helvetica;
 	height:15%;
 	margin:auto;
 	margin-bottom:4%;
 	padding-bottom:2%;
-	opacity:0.75;
 	padding-top:2%;
 	text-align:center;
 	width:90%;

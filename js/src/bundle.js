@@ -72,6 +72,7 @@ function getDivForSpotifyItems(spotifyItems) {
 				thumbnail.src = images[1].url;
 				thumbnail.width = 120;
 				itemDiv.appendChild(thumbnail);
+				itemDiv.style.backgroundImage = "url('" + thumbnail.src + "')";
 			}
 		} else if (spotifyItems[i].type == 'artist') {
 			const name = document.createTextNode('Name: ' + spotifyItems[i].name);
