@@ -87,6 +87,7 @@ form {
 .resultItem {
 	border:5%;
 	color:white;
+	cursor: pointer;
 	font-family:helvetica;
 	height:150px;
 	margin:auto;
@@ -108,7 +109,7 @@ form {
 .resultItem__background {
 	height:100%;
     width:100%;
-    -webkit-filter:blur(50px);
+    -webkit-filter:blur(20px);
     
     /* does nothing but force the user’s browser to hardware accelerate any special effects applied to the element */
     -webkit-transform:translate3d(0, 0, 0); 
