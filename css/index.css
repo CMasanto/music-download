@@ -31,7 +31,7 @@ form {
 	height:20%;
 	margin:6px;
 	padding:8px 15px;
-	opacity:0.8;
+	opacity:0.7;
 	width:50%;
 }
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
@@ -79,32 +79,48 @@ form {
 
 #results hr {
 	border-color:#bfd8d2;
+	margin:auto;
 	margin-bottom:2%;
 	width:50%;
 }
 
 .resultItem {
 	border:5%;
-	border-radius:100px;
 	color:white;
 	font-family:helvetica;
-	height:15%;
+	height:150px;
 	margin:auto;
 	margin-bottom:4%;
+	overflow:hidden;  /* hide overflow to contain the background */
 	padding-bottom:2%;
 	padding-top:2%;
 	text-align:center;
-	width:90%;
+	width:100%;
+	
+	/*  Transitions with a fade to the hover version below */
+	-o-transition:.1s;
+	-ms-transition:.1s;
+	-moz-transition:.1s;
+	-webkit-transition:.1s;
+	transition:.1s;
+}
+
+.resultItem__background {
+	height:100%;
+    width:100%;
+    -webkit-filter:blur(50px);
+    
+    /* does nothing but force the user’s browser to hardware accelerate any special effects applied to the element */
+    -webkit-transform:translate3d(0, 0, 0); 
 }
 
 .resultItem:hover {
-	border:solid;
-	border-color:#fedc3d;
-	border-width:3px;
+	border-bottom:solid white 2px;
+	border-top:solid white 2px;
 }
 
 .resultItem img {
-
+	
 }
 
 

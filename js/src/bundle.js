@@ -53,8 +53,19 @@ function getDivForSpotifyItems(spotifyItems) {
 	console.log(spotifyItems);
 	for (var i = 0; i < spotifyItems.length; i++) {
 		const itemDiv = document.createElement('div');
-		itemDiv.className = 'resultItem';
-		if (spotifyItems[i].type == 'track') {
+		itemDiv.className = 'resultItem w3-animate-opacity';  // latter 3 allow for fading in
+		if (spotifyItems[i].type == 'track') { 
+			const images = spotifyItems[i].album.images;
+			const bgImg = document.createElement('img');
+			bgImg.className = 'resultItem__background' ;
+			bgImg.src = images[0].url;
+			itemDiv.appendChild(bgImg);
+			
+			const thumbnail = document.createElement('img');
+			thumbnail.src = images[0].url;
+			thumbnail.width = 120;
+			itemDiv.appendChild(thumbnail);
+			
 			const title = document.createTextNode('Title: ' + spotifyItems[i].name);
 			const artist = document.createTextNode('Artist: ' + spotifyItems[i].artists[0].name);
 			const album = document.createTextNode('Album: ' + spotifyItems[i].album.name);
@@ -65,15 +76,6 @@ function getDivForSpotifyItems(spotifyItems) {
 			itemDiv.appendChild(album);
 			itemDiv.appendChild(document.createElement('br'));
 			itemDiv.appendChild(document.createElement('br'));
-			
-			const images = spotifyItems[i].album.images;
-			if (images && images.length >= 2) {
-				const thumbnail = document.createElement('img');
-				thumbnail.src = images[1].url;
-				thumbnail.width = 120;
-				itemDiv.appendChild(thumbnail);
-				itemDiv.style.backgroundImage = "url('" + thumbnail.src + "')";
-			}
 		} else if (spotifyItems[i].type == 'artist') {
 			const name = document.createTextNode('Name: ' + spotifyItems[i].name);
 			itemDiv.appendChild(name);
