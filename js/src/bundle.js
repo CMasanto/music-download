@@ -2,7 +2,8 @@
 
 var Spotify = require('spotify-web-api-js');
 var s = new Spotify();
-$('search-button').addEventListener("click", function() {
+$('search-form').addEventListener("submit", function(event) {
+	event.preventDefault();
 	displayQueryResults();
 });
 
@@ -53,29 +54,35 @@ function getDivForSpotifyItems(spotifyItems) {
 	console.log(spotifyItems);
 	for (var i = 0; i < spotifyItems.length; i++) {
 		const itemDiv = document.createElement('div');
-		itemDiv.className = 'resultItem w3-animate-opacity';  // latter 3 allow for fading in
-		if (spotifyItems[i].type == 'track') { 
+		itemDiv.className = 'resultItem w3-animate-opacity';  // latter allows for fading in
+		if (spotifyItems[i].type == 'track') {
 			const images = spotifyItems[i].album.images;
 			const bgImg = document.createElement('img');
 			bgImg.className = 'resultItem__background' ;
 			bgImg.src = images[0].url;
 			itemDiv.appendChild(bgImg);
 			
+			const thumbnailDiv = document.createElement('div');
+			thumbnailDiv.className = 'resultItem__coverArt';
 			const thumbnail = document.createElement('img');
 			thumbnail.src = images[0].url;
 			thumbnail.width = 120;
-			itemDiv.appendChild(thumbnail);
+			thumbnailDiv.appendChild(thumbnail);
+			itemDiv.appendChild(thumbnailDiv);
 			
+			const itemInfo = document.createElement('div');
+			itemInfo.className = 'resultItem__text';
 			const title = document.createTextNode('Title: ' + spotifyItems[i].name);
-			const artist = document.createTextNode('Artist: ' + spotifyItems[i].artists[0].name);
+			const artist = document.createTextNode('Artist: ' + spotifyItems[i].artists[0]);
 			const album = document.createTextNode('Album: ' + spotifyItems[i].album.name);
-			itemDiv.appendChild(title);
-			itemDiv.appendChild(document.createElement('br'));
-			itemDiv.appendChild(artist);
-			itemDiv.appendChild(document.createElement('br'));
-			itemDiv.appendChild(album);
-			itemDiv.appendChild(document.createElement('br'));
-			itemDiv.appendChild(document.createElement('br'));
+			itemInfo.appendChild(title);
+			itemInfo.appendChild(document.createElement('br'));
+			itemInfo.appendChild(artist);
+			itemInfo.appendChild(document.createElement('br'));
+			itemInfo.appendChild(album);
+			itemInfo.appendChild(document.createElement('br'));
+			itemInfo.appendChild(document.createElement('br'));
+			itemDiv.appendChild(itemInfo);
 		} else if (spotifyItems[i].type == 'artist') {
 			const name = document.createTextNode('Name: ' + spotifyItems[i].name);
 			itemDiv.appendChild(name);
