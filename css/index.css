@@ -127,7 +127,7 @@ form {
 	position:absolute;
 	top:0;
     width:100%;
-    -webkit-filter:blur(20px);
+    -webkit-filter:blur(40px);
     
     /* does nothing but force the user’s browser to hardware accelerate any special effects applied to the element */
     -webkit-transform:translate3d(0, 0, 0); 
