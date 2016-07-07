@@ -64,33 +64,31 @@ function getDivForSpotifyItems(spotifyItems) {
 			
 			const thumbnailDiv = document.createElement('div');
 			thumbnailDiv.className = 'resultItem__coverArt';
-			const thumbnail = document.createElement('img');
-			thumbnail.src = images[0].url;
-			thumbnail.width = 120;
-			thumbnailDiv.appendChild(thumbnail);
+// 			const thumbnail = document.createElement('div');
+			thumbnailDiv.style.backgroundImage = 'url("' + images[0].url + '")';
+// 			thumbnailDiv.appendChild(thumbnail);
 			itemDiv.appendChild(thumbnailDiv);
 			
 			const itemInfo = document.createElement('div');
 			itemInfo.className = 'resultItem__text';
 			const title = document.createTextNode('Title: ' + spotifyItems[i].name);
-			const artist = document.createTextNode('Artist: ' + spotifyItems[i].artists[0]);
+			const artist = document.createTextNode('Artist: ' + spotifyItems[i].artists[0].name);
 			const album = document.createTextNode('Album: ' + spotifyItems[i].album.name);
 			itemInfo.appendChild(title);
 			itemInfo.appendChild(document.createElement('br'));
 			itemInfo.appendChild(artist);
 			itemInfo.appendChild(document.createElement('br'));
 			itemInfo.appendChild(album);
-			itemInfo.appendChild(document.createElement('br'));
-			itemInfo.appendChild(document.createElement('br'));
 			itemDiv.appendChild(itemInfo);
-		} else if (spotifyItems[i].type == 'artist') {
-			const name = document.createTextNode('Name: ' + spotifyItems[i].name);
-			itemDiv.appendChild(name);
-		} else if (spotifyItems[i].type == 'album') {
-			const name = document.createTextNode('Name: ' + spotifyItems[i].name);
-			itemDiv.appendChild(name);
+			
+			div.appendChild(itemDiv);
+// 		} else if (spotifyItems[i].type == 'artist') {
+			// const name = document.createTextNode('Name: ' + spotifyItems[i].name);
+// 			itemDiv.appendChild(name);
+// 		} else if (spotifyItems[i].type == 'album') {
+			// const name = document.createTextNode('Name: ' + spotifyItems[i].name);
+// 			itemDiv.appendChild(name);
 		} 
-		div.appendChild(itemDiv);
 	}
 	return div;
 }
