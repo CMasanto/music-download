@@ -7,7 +7,9 @@ $('search-form').addEventListener("submit", function(event) {
 	displayQueryResults();
 });
 
-
+// Set Google API access credentials - OUT OF PROJECT TREE (for privacy)
+const gapiKey = readStringFromFileAtPath ("///Users/coreymasanto/Desktop/free-music-downloads/private/Google_API_Key.txt");
+gapi.client.setApiKey(gapiKey);
 
 function $(id) { 
 	return document.getElementById(id); 
@@ -18,6 +20,7 @@ function $(id) {
 function displayQueryResults() {
 	var query = $('search-bar').value;
 	if (query == '') return;
+	$('queryHeading').innerText = "Showing results for '" + query + "'";
 
 	// Search for and display relevant tracks.
 	s.searchTracks(query).then(function(trackResults) {
@@ -80,13 +83,14 @@ function getDivForSpotifyItems(spotifyItems) {
 			itemInfo.appendChild(document.createElement('br'));
 			itemInfo.appendChild(album);
 			itemDiv.appendChild(itemInfo);
-			
 			div.appendChild(itemDiv);
+			const yt_query = spotifyItems[i].artists[0].name + " " + spotifyItems[i].name;
+			div.onclick = youtube_search(yt_query);  // Perform a YouTube 
 // 		} else if (spotifyItems[i].type == 'artist') {
-			// const name = document.createTextNode('Name: ' + spotifyItems[i].name);
+// 			const name = document.createTextNode('Name: ' + spotifyItems[i].name);
 // 			itemDiv.appendChild(name);
 // 		} else if (spotifyItems[i].type == 'album') {
-			// const name = document.createTextNode('Name: ' + spotifyItems[i].name);
+// 			const name = document.createTextNode('Name: ' + spotifyItems[i].name);
 // 			itemDiv.appendChild(name);
 		} 
 	}
@@ -101,6 +105,33 @@ function removeChildNodesForId(id) {
 		root.removeChild(root.firstChild);
 	}
 }
+
+///////////// YouTube //////////////
+// After the API loads, call a function to enable the search box.
+function handleAPILoaded() {
+  $('#search-button').attr('disabled', false);
+}
+
+// Search for a specified string.
+function youtube_search(query) {
+  var request = gapi.client.youtube.search.list({
+    q: query,
+    part: 'snippet'
+  });
+
+  request.execute(function(response) {
+    var str = JSON.stringify(response.result);
+    console.log(str);
+  });
+}
+
+function readStringFromFileAtPath(filePath) {
+        var request = new XMLHttpRequest();
+        request.open("GET", filePath, false);
+        request.send(null);
+        return request.responseText;
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////
 
 },{"spotify-web-api-js":2,"uniq":3}],2:[function(require,module,exports){

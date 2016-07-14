@@ -4,11 +4,11 @@ html {
 }
 
 body {
-	background: #3cc47c; /* For browsers that do not support gradients */
-	background: -webkit-linear-gradient(left top, #e9c893, #3cc47c, #1e392a); /* For Safari 5.1 to 6.0 */
-	background: -o-linear-gradient(bottom right, #e9c893, #3cc47c, #1e392a); /* For Opera 11.1 to 12.0 */
-	background: -moz-linear-gradient(bottom right, #e9c893, #3cc47c, #1e392a); /* For Firefox 3.6 to 15 */
-	background: linear-gradient(to bottom right, #e9c893, #3cc47c, #1e392a); /* Standard syntax */
+	background: #FF7D76; /* For browsers that do not support gradients */
+	background: -webkit-linear-gradient(left top, #FFFFFF, #FF7D76, #FF453B); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(bottom right, #FFFFFF, #FF7D76, #FF453B); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(bottom right, #FFFFFF, #FF7D76, #FF453B); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(to bottom right, #FFFFFF, #FF7D76, #FF453B); /* Standard syntax */
 	background-attachment: fixed;
     height: 100%;
     width: 100%;
@@ -84,17 +84,26 @@ form {
 }
 
 #results h1 {
-	color:#fedc3d;
+	color:#FFFFFF;
 	font-family:helvetica;
 	font-weight:100;
-	text-align:center;
+	margin-left:12.5%;
+	text-align:left;
+}
+
+#queryHeading {
+	color:#FFFFFF;
+	font-family:helvetica;
+	font-weight:100;
+	margin-left:12.5%;
+	text-align:left;
 }
 
 #results hr {
-	border-color:#bfd8d2;
+	border-color:#BC3A33;
 	margin:auto;
 	margin-bottom:2%;
-	width:50%;
+	width:75%;
 }
 
 .resultItem {
