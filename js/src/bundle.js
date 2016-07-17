@@ -7,9 +7,21 @@ $('search-form').addEventListener("submit", function(event) {
 	displayQueryResults();
 });
 
-// Set Google API access credentials - OUT OF PROJECT TREE (for privacy)
-const gapiKey = readStringFromFileAtPath ("///Users/coreymasanto/Desktop/free-music-downloads/private/Google_API_Key.txt");
-gapi.client.setApiKey(gapiKey);
+
+
+// Load the Google API client.
+gapi.load('client', function() { 
+	console.log('gapi.client loaded.');
+	
+	// Set Google API access credentials - OUT OF PROJECT TREE (for privacy)
+	const gapiKey = readStringFromFileAtPath ("///Users/coreymasanto/Desktop/free-music-downloads/private/Google_API_Key.txt");
+	gapi.client.setApiKey(gapiKey);
+	
+	gapi.client.load('youtube', 'v3', function() {
+		console.log('gapi.client.youtube loaded.');
+	});
+});
+
 
 function $(id) { 
 	return document.getElementById(id); 
@@ -32,29 +44,28 @@ function displayQueryResults() {
 	});
 
 	// Search for and display relevant artists.
-	s.searchArtists(query).then(function(artistResults) {
-		const artistsDiv = getDivForSpotifyItems(artistResults.artists.items);
-		removeChildNodesForId('artists');
-		$('artists').appendChild(artistsDiv);
-	}, function(err) {
-		console.error(err);
-	});
+// 	s.searchArtists(query).then(function(artistResults) {
+// 		const artistsDiv = getDivForSpotifyItems(artistResults.artists.items);
+// 		removeChildNodesForId('artists');
+// 		$('artists').appendChild(artistsDiv);
+// 	}, function(err) {
+// 		console.error(err);
+// 	});
 	
 	// Search for and display relevant albums.
-	s.searchAlbums(query).then(function(albumResults) {
-		const albumsDiv = getDivForSpotifyItems(albumResults.albums.items);
-		removeChildNodesForId('albums');
-		$('albums').appendChild(albumsDiv);
-	}, function(err) {
-		console.error(err);
-	});
+// 	s.searchAlbums(query).then(function(albumResults) {
+// 		const albumsDiv = getDivForSpotifyItems(albumResults.albums.items);
+// 		removeChildNodesForId('albums');
+// 		$('albums').appendChild(albumsDiv);
+// 	}, function(err) {
+// 		console.error(err);
+// 	});
 }
 
 
 
 function getDivForSpotifyItems(spotifyItems) {
 	const div = document.createElement('div');
-	console.log(spotifyItems);
 	for (var i = 0; i < spotifyItems.length; i++) {
 		const itemDiv = document.createElement('div');
 		itemDiv.className = 'resultItem w3-animate-opacity';  // latter allows for fading in
@@ -67,9 +78,7 @@ function getDivForSpotifyItems(spotifyItems) {
 			
 			const thumbnailDiv = document.createElement('div');
 			thumbnailDiv.className = 'resultItem__coverArt';
-// 			const thumbnail = document.createElement('div');
 			thumbnailDiv.style.backgroundImage = 'url("' + images[0].url + '")';
-// 			thumbnailDiv.appendChild(thumbnail);
 			itemDiv.appendChild(thumbnailDiv);
 			
 			const itemInfo = document.createElement('div');
@@ -84,15 +93,11 @@ function getDivForSpotifyItems(spotifyItems) {
 			itemInfo.appendChild(album);
 			itemDiv.appendChild(itemInfo);
 			div.appendChild(itemDiv);
-			const yt_query = spotifyItems[i].artists[0].name + " " + spotifyItems[i].name;
-			div.onclick = youtube_search(yt_query);  // Perform a YouTube 
-// 		} else if (spotifyItems[i].type == 'artist') {
-// 			const name = document.createTextNode('Name: ' + spotifyItems[i].name);
-// 			itemDiv.appendChild(name);
-// 		} else if (spotifyItems[i].type == 'album') {
-// 			const name = document.createTextNode('Name: ' + spotifyItems[i].name);
-// 			itemDiv.appendChild(name);
-		} 
+			const yt_search_query = spotifyItems[i].artists[0].name + " " + spotifyItems[i].name;
+			
+			// Perform a YouTube search
+			div.onclick = function() { youtube_search(yt_search_query); }
+		}
 	}
 	return div;
 }
@@ -107,12 +112,6 @@ function removeChildNodesForId(id) {
 }
 
 ///////////// YouTube //////////////
-// After the API loads, call a function to enable the search box.
-function handleAPILoaded() {
-  $('#search-button').attr('disabled', false);
-}
-
-// Search for a specified string.
 function youtube_search(query) {
   var request = gapi.client.youtube.search.list({
     q: query,
@@ -125,6 +124,7 @@ function youtube_search(query) {
   });
 }
 
+// Helper function that is used to read the Google API key from a private file.
 function readStringFromFileAtPath(filePath) {
         var request = new XMLHttpRequest();
         request.open("GET", filePath, false);
@@ -132,7 +132,7 @@ function readStringFromFileAtPath(filePath) {
         return request.responseText;
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
 
 },{"spotify-web-api-js":2,"uniq":3}],2:[function(require,module,exports){
 /* global module */
